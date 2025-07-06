@@ -1,0 +1,12 @@
+{
+  "name": "test4",
+  "version": "1.0.0",
+  "description": "Example Electron app with public key pinning",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^28.2.0"
+  }
+}
