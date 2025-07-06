@@ -30,4 +30,6 @@ npm start
 ```
 
 When the certificate matches the pinned key, the response from the server will
-be shown in the application window.
+be shown in the application window. The request is performed using Electron's
+`net` module so that the custom certificate verification logic is applied even
+when using a self‑signed certificate.
