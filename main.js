@@ -2,8 +2,7 @@ const { app, BrowserWindow, session } = require("electron");
 const crypto = require("crypto");
 
 // Replace with the SHA-256 hash of your server's public key in base64
-const PINNED_PUBLIC_KEY_HASH =
-  "4db7a8f6e9d8693f0512b4244d3f0821d4b6874fb0aa486055ef5d9c8d13fe18";
+const PINNED_PUBLIC_KEY_HASH = "Tbeo9unYaT8FErQkTT8IIdS2h0+wqkhgVe9dnI0T/hg=";
 
 function verifyCertificate(request, callback) {
   const { hostname, certificate } = request;
