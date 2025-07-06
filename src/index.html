@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Server Message</title>
+</head>
+<body>
+  <h1>Server Message</h1>
+  <pre id="output">Loading...</pre>
+  <script>
+    const { ipcRenderer } = require('electron');
+    ipcRenderer.on('server-message', (event, msg) => {
+      document.getElementById('output').textContent = msg;
+    });
+  </script>
+</body>
+</html>
