@@ -1,15 +1,21 @@
-const https = require('https');
+const { net } = require('electron');
 
 function fetchMessage() {
-  https.get('https://192.168.1.21', res => {
-    let data = '';
-    res.on('data', chunk => data += chunk);
+  const request = net.request('https://192.168.1.21');
+  let data = '';
+
+  request.on('response', res => {
+    res.on('data', chunk => (data += chunk.toString()));
     res.on('end', () => {
       document.getElementById('response').textContent = data;
     });
-  }).on('error', err => {
+  });
+
+  request.on('error', err => {
     document.getElementById('response').textContent = `Error: ${err.message}`;
   });
+
+  request.end();
 }
 
 window.onload = fetchMessage;

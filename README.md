@@ -31,3 +31,8 @@ npm start
 
 When the certificate matches the pinned key, the response from the server will
 be shown in the application window.
+
+The network request from the renderer uses Electron's `net` module so that the
+pinned certificate verification defined in `main.js` is applied. Using Node's
+`https` module directly would result in errors such as `unable to verify the
+first certificate` when connecting to servers with self‑signed certificates.
