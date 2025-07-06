@@ -1,22 +1,30 @@
-const { app, BrowserWindow, session } = require('electron');
-const crypto = require('crypto');
+const { app, BrowserWindow, session } = require("electron");
+const crypto = require("crypto");
 
 // Replace with the SHA-256 hash of your server's public key in base64
-const PINNED_PUBLIC_KEY_HASH = 'REPLACE_WITH_BASE64_HASH';
+const PINNED_PUBLIC_KEY_HASH =
+  "4db7a8f6e9d8693f0512b4244d3f0821d4b6874fb0aa486055ef5d9c8d13fe18";
 
 function verifyCertificate(request, callback) {
   const { hostname, certificate } = request;
-  if (hostname === '192.168.1.21') {
+  if (hostname === "192.168.1.21") {
     try {
-      const pem = `-----BEGIN CERTIFICATE-----\n${certificate.data.toString('base64')}\n-----END CERTIFICATE-----`;
-      const publicKey = crypto.createPublicKey(pem).export({ type: 'spki', format: 'der' });
-      const hash = crypto.createHash('sha256').update(publicKey).digest('base64');
+      const pem = `-----BEGIN CERTIFICATE-----\n${certificate.data.toString(
+        "base64"
+      )}\n-----END CERTIFICATE-----`;
+      const publicKey = crypto
+        .createPublicKey(pem)
+        .export({ type: "spki", format: "der" });
+      const hash = crypto
+        .createHash("sha256")
+        .update(publicKey)
+        .digest("base64");
       if (hash === PINNED_PUBLIC_KEY_HASH) {
         return callback(0);
       }
       return callback(-2);
     } catch (err) {
-      console.error('Certificate verification failed', err);
+      console.error("Certificate verification failed", err);
       return callback(-2);
     }
   }
@@ -29,11 +37,11 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
-    }
+      contextIsolation: false,
+    },
   });
 
-  win.loadFile('index.html');
+  win.loadFile("index.html");
 }
 
 app.whenReady().then(() => {
@@ -41,8 +49,8 @@ app.whenReady().then(() => {
   createWindow();
 });
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
